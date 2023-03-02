@@ -1,1 +1,102 @@
-/* developer styles go here */
+body {
+    font-family: sans-serif;
+}
+
+header {
+    max-width: 58rem;
+    margin: 0 auto;
+}
+
+/* Step 1: Styling all the menu links for the small screen 
+Text styling goes on the anchor elements to overwrite the browser styles. Layout and spacing goes on the li elements.*/
+
+ul.menu {
+    background-color: #191919;  
+}
+
+ul.menu a {
+    color: #f5f5f5;
+    text-decoration: underline;
+    text-transform: uppercase;
+    /* making the clickable area bigger to fit the entire li vs just the text*/
+    display: block;
+    padding-left: 1rem;
+}
+
+ul.menu a:hover,
+ul.menu a:active {
+    background-color: #3d3d3d;
+    border-radius: 5px;
+}
+
+ul.menu li {
+    line-height: 2.8125rem;
+    margin: 0.5rem 0;
+}
+
+svg {
+    display: none;
+}
+
+ul.submenu {
+    padding: 0 1rem;
+}
+
+ul.submenu a {
+    text-decoration: none;
+}
+
+@media screen and (min-width: 40rem) {
+    ul.menu {
+        display: flex; 
+    }
+
+    ul.menu a {
+        padding-left: 0;
+    }
+
+    ul.menu li {
+        flex: 1; /*to make the lis even width*/
+        text-align: center;
+    }
+
+    /*Step 2: position, style, and hide the dropdown menu*/
+    ul.submenu {
+        position: absolute;
+        z-index: 1; /*will place this item on top when things are stacking*/
+        background-color: #191919;
+        border-radius: 0 0 5px 5px;
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.5s ease;
+    }
+
+    ul.submenu li {
+        text-align: left;
+    }
+
+    svg {
+        display: inline-block;
+        width: 1rem;
+        fill: #f5f5f5;
+        margin: 0.25rem 0 0 0.45rem;
+    }
+
+    /*Step 3: add a hover state over the main menu li and show the submenu of that li*/
+    ul.menu li:hover > ul.submenu {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    /*Step 4: add transition state to make this state. Makes this dropdown a little more usable. Transition all changing properties (visibility & opacity),
+    with a druation 0.5 seconds and a timing function of ease*/
+    /*You can only add transitions to things that change, and they must be added to the original element BEFORE transitioning
+    transition: all 0.5s ease;*/
+
+    /*Step 5: Add accessibility with the :focus-within state*/
+    ul.menu li:focus-within > ul,
+    ul.menu li > ul:focus {
+        visibility: visible;
+        opacity: 1;
+    }
+}
